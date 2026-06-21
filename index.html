@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALKNUTNET</title>
+    
+    <!-- Подключаем иконки (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Шрифт, похожий на ваш (моноширинный) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Стили — максимально минималистичный, "чёрный" дизайн */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000; /* Абсолютно чёрный фон */
+            color: #ffffff;
+            font-family: 'Space Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Контейнер с рамкой, как на ваших обложках */
+        .main-container {
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Логотип по типу ваших превью (V внутри круга) */
+        .logo-icon {
+            font-size: 40px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            line-height: 74px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* Заголовок проекта */
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 20px;
+        }
+
+        /* Описание деятельности */
+        .description {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #d1d1d1;
+            margin-bottom: 40px;
+            text-align: justify; /* Текст по ширине, как в блокноте */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Блок с кнопками (как меню в вашем приложении JournalCrypt) */
+        .link-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        /* Стиль ссылок-кнопок */
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2a2a2a;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Иконки внутри кнопок */
+        a i {
+            font-size: 18px;
+        }
+
+        /* Адаптация для мобильных устройств (чтобы кнопки встали в одну колонку) */
+        @media (max-width: 600px) {
+            .main-container { padding: 40px 20px; }
+            h1 { font-size: 24px; }
+            .link-grid { grid-template-columns: 1fr; }
+            .logo-icon { width: 60px; height: 60px; line-height: 54px; font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Иконка с логотипом -->
+        <div class="logo-icon">V</div>
+
+        <!-- Название проекта -->
+        <h1>VALKNUTNET</h1>
+
+        <!-- Короткое описание деятельности (оно же в стиле вашего манифеста) -->
+        <div class="description">
+            Мы — независимое сообщество экспертов в области кибербезопасности, OSINT-разведки и цифрового анализа. <br><br>
+            Информация — это ресурс. Мы добываем, структурируем и защищаем данные. Автоматизация рутины, разработка инструментов и логика превыше морализаторства.
+        </div>
+
+        <!-- Ссылки-кнопки на YouTube и Telegram -->
+        <div class="link-grid">
+            <a href="ССЫЛКА_НА_ТВОЙ_КАНАЛ_YOUTUBE" target="_blank">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="ССЫЛКА_НА_ТВОЙ_КАНАЛ_TELEGRAM" target="_blank">
+                <i class="fab fa-telegram-plane"></i> Telegram
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
