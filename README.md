@@ -1,1 +1,194 @@
-# valknutnet
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALKNUTNET</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #080808; 
+            background-image: radial-gradient(circle at 50% 0%, #151515 0%, #000000 70%);
+            color: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            border-radius: 24px; 
+            padding: 40px 35px;
+            max-width: 600px;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255,255,255,0.02);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .nav-menu a {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaaaaa;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-menu a.active { background: rgba(255, 255, 255, 0.1); }
+
+        .logo-wrapper {
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 16px; 
+            padding: 4px;
+            background: rgba(0,0,0,0.4);
+            width: 80px;
+            height: 80px;
+        }
+        .logo-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px auto;
+            border-radius: 2px;
+        }
+        .description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            padding: 0 5px;
+            font-weight: 700;
+            font-style: italic;
+        }
+        .link-section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .link-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+        a.button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 10px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease-in-out;
+        }
+        a.button i { font-size: 18px; transition: transform 0.2s ease; }
+        a.button:hover { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); transform: scale(1.02); }
+        a.button:hover i { transform: translateY(-1px); }
+        a.button:active { transform: scale(0.98); }
+        .youtube-link i { color: #ff3333; }
+        .telegram-link i { color: #2aabee; }
+
+        .backup-section { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 25px; margin-bottom: 25px; }
+        .backup-text { font-size: 13px; color: #777; font-style: italic; }
+        .backup-domain { font-size: 16px; font-weight: 700; font-style: italic; color: #e0e0e0; margin-top: 8px; letter-spacing: 1px; }
+
+        .archive-section { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; margin-bottom: 20px; }
+        .archive-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 10px; font-weight: 700; }
+        .archive-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .archive-list li a { color: #aaaaaa; text-decoration: none; font-size: 13px; transition: color 0.2s ease; }
+        .archive-list li a:hover { color: #ffffff; text-decoration: underline; }
+
+        .footer-update { font-size: 11px; color: #444; margin-top: 10px; font-style: italic; }
+
+        @media (max-width: 600px) {
+            .glass-container { padding: 30px 20px; border-radius: 20px; }
+            h1 { font-size: 22px; }
+            .link-grid { grid-template-columns: 1fr; }
+            .logo-wrapper { width: 70px; height: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+  
+        <div class="nav-menu">
+            <a href="index.html" class="active">General</a>
+            <a href="archive.html">Resources</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <div class="logo-wrapper">
+            <img src="https://i.ibb.co/HT76QVJx/base.png" alt="VALKNUTNET Logo" class="logo-image">
+        </div>
+        <h1>VALKNUTNET</h1>
+        <div class="divider"></div>
+
+        <div class="description">
+            Survival today is a fight to preserve the internet freedom of every person.<br>
+            We are VALKNUTNET. An anonymous group experts in cyber security, crypto, and people.<br><br>
+            We value only rationality and logic.<br>
+            The world is mechanics, chemistry, and logic.
+        </div>
+
+        <div class="link-section-title">• Relevant Resources •</div>
+        <div class="link-grid">
+            <a href="https://youtube.com/@valknutnet" target="_blank" class="button youtube-link"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://t.me/+4hg_qS2rsLw5ZGQ6" target="_blank" class="button telegram-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+        </div>
+    </div>
+</body>
+</html>
