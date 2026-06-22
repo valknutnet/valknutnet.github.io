@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALKNUTNET — Архив</title>
+    <title>VALKNUTNET</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,7 +45,6 @@
 
         h1 { text-align: center; font-size: 28px; font-weight: 700; font-style: italic; letter-spacing: 2px; margin-bottom: 30px; }
         
-        /* Сетка для медиа-контента */
         .media-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -62,14 +61,12 @@
         
         .media-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         .media-title i { color: #ff3333; }
-        .media-title a { color: #ffffff; text-decoration: none; transition: 0.2s; }
-        .media-title a:hover { text-decoration: underline; }
 
-        /* Плеер Ютуб */
+ 
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 15px; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* Окошко со статьей */
+
         .article-box {
             background: rgba(0, 0, 0, 0.5);
             border-left: 2px solid #2aabee;
@@ -104,105 +101,37 @@
 <body>
     <div class="glass-container">
         <div class="nav-menu">
-            <a href="index.html">Главная</a>
-            <a href="archive.html" class="active">Архив</a>
-            <a href="about.html">О нас</a>
+            <a href="index.html">General</a>
+            <a href="archive.html" class="active">Resources</a>
+            <a href="about.html">About</a>
         </div>
         
-        <h1>Resources</h1>
+        <h1>RESOURCES</h1>
 
-        <!-- Сюда скрипт вставит карточки -->
-        <div class="media-grid" id="mediaGrid"></div>
+        <div class="media-grid">
+            
+    
+            <div class="media-card">
+                <div class="media-title"><i class="fab fa-youtube"></i>Test title</div>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+            
+                </div>
+                <a href="#" class="download-link"><i class="fas fa-file-archive"></i>Download material</a>
+            </div>
+
+      
+            <div class="media-card">
+                <div class="media-title"><i class="fas fa-file-alt"></i>Test title</div>
+                <div class="article-box">
+                    <h3>Brief description:</h3>
+                    <p>Test description article's.</p>
+                </div>
+                <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Read article Telegra.ph</a>
+                <a href="#" class="download-link" style="margin-left: 10px;"><i class="fas fa-database"></i> Get dump</a>
+            </div>
+
+        </div>
     </div>
-
-    <script>
-        // ==========================================================
-        // ЗАМЕНИТЕ ЭТОТ БЛОК ДАННЫМИ ИЗ АДМИН-ПАНЕЛИ (admin.html)
-        // ==========================================================
-        
-        const archiveData = [
-            // Пример данных (это будет перезаписано вашим кодом из панели управления)
-            {
-                "type": "video",
-                "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                "title": "JournalCrypt — Полный разбор",
-                "download": "#",
-                "videoId": "dQw4w9WgXcQ"
-            },
-            {
-                "type": "article",
-                "url": "https://telegra.ph/Example-Article-01-01",
-                "title": "OSINT: Базы данных Telegra.ph",
-                "pdf": "#",
-                "dump": "#"
-            }
-        ];
-        
-        // ==========================================================
-        // КОД ДЛЯ ОТРИСОВКИ (НЕ ТРОГАЙТЕ)
-        // ==========================================================
-
-        async function loadArchive() {
-            const grid = document.getElementById('mediaGrid');
-            grid.innerHTML = '';
-
-            for (let item of archiveData) {
-                const card = document.createElement('div');
-                card.className = 'media-card';
-
-                if (item.type === 'video') {
-                    // Если заголовок пустой, пытаемся подтянуть через API
-                    let title = item.title || "Video";
-                    if (!item.title && item.videoId) {
-                        try {
-                            const response = await fetch(`https://pipedapi.kavin.rocks/videoInfo/${item.videoId}`);
-                            if (response.ok) {
-                                const data = await response.json();
-                                title = data.title || "Video";
-                            }
-                        } catch (e) {}
-                    }
-
-                    card.innerHTML = `
-                        <div class="media-title"><i class="fab fa-youtube"></i> ${title}</div>
-                        <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/${item.videoId}" allowfullscreen></iframe>
-                        </div>
-                        <a href="${item.download}" class="download-link"><i class="fas fa-file-archive"></i> Get materials</a>
-                    `;
-                } else if (item.type === 'article') {
-                    let title = item.title || "Article";
-                    let description = "No description available.";
-
-                    // Если заголовок пустой, пытаемся вытащить из Telegra.ph
-                    if (!item.title || item.title === "") {
-                        try {
-                            const response = await fetch(`https://api.allorigins.win/raw?url=${item.url}`);
-                            if (response.ok) {
-                                const html = await response.text();
-                                const h1Match = html.match(/<h1[^>]*>(.*?)<\/h1>/);
-                                if (h1Match) title = h1Match[1];
-                                const pMatch = html.match(/<p[^>]*>(.*?)<\/p>/);
-                                if (pMatch) description = pMatch[1];
-                            }
-                        } catch (e) {}
-                    }
-
-                    card.innerHTML = `
-                        <div class="media-title"><i class="fas fa-file-alt"></i> <a href="${item.url}" target="_blank">${title}</a></div>
-                        <div class="article-box">
-                            <h3>Brief description:</h3>
-                            <p>${description}</p>
-                        </div>
-                        <a href="${item.pdf}" class="download-link"><i class="fas fa-file-pdf"></i> Read the article (PDF)</a>
-                        <a href="${item.dump}" class="download-link" style="margin-left: 10px;"><i class="fas fa-database"></i> Download dump</a>
-                    `;
-                }
-                grid.appendChild(card);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadArchive);
-    </script>
 </body>
 </html>
