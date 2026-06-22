@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALKNUTNET — О нас</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #080808; 
+            background-image: radial-gradient(circle at 50% 0%, #151515 0%, #000000 70%);
+            color: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; 
+            padding: 40px 35px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .nav-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .nav-menu a {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaaaaa;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .nav-menu a:hover, .nav-menu a.active { color: #ffffff; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); }
+
+        h1 { text-align: center; font-size: 28px; font-weight: 700; font-style: italic; margin-bottom: 30px; letter-spacing: 2px; }
+        
+        .about-content { 
+            font-size: 15px; 
+            line-height: 1.8; 
+            color: #c0c0c0; 
+            text-align: left; 
+            padding: 10px;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            padding-left: 20px;
+        }
+        .about-content strong { color: #ffffff; font-style: italic; }
+        
+        .contact-list { margin-top: 30px; list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .contact-list li a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .contact-list li a:hover { background: rgba(255, 255, 255, 0.12); transform: translateX(5px); }
+        .contact-list i { width: 25px; font-size: 18px; color: #aaaaaa; }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <div class="nav-menu">
+            <a href="index.html">General</a>
+            <a href="archive.html">Resources</a>
+            <a href="about.html" class="active">About</a>
+        </div>
+        
+        <h1>ABOUT US</h1>
+
+        <div class="about-content">
+            <p><strong>VALKNUTNET</strong>— it is neither a project nor a company. It is an order..</p>
+            <br>
+            <p>We do not serve corporations, work for governments, or seek approval. Our only currency is information. Our only tool is logic.</p>
+            <br>
+<p>Our work is based on the principles of <strong>rationality and transparency</strong>. If a vulnerability is found, it will be documented. If a system is unprotected, we will prove it. We do not hide evidence. We publish reports.</p>
+          
+            <br>
+            <p>We adhere to the philosophy that <strong>“you own an asset only if you can destroy it.”</strong> That is why we build our own tools, control our own channels, and never rely on intermediaries.</p>
+        </div>
+
+        <ul class="contact-list">
+            <li><a href="https://t.me/+4hg_qS2rsLw5ZGQ6" target="_blank"><i class="fab fa-telegram-plane"></i> Main Telegram channel</a></li>
+            <li><a href="https://youtube.com/@valknutnet" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+        </ul>
+    </div>
+</body>
+</html>
