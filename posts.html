@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALKNUTNET — Posts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #080808; 
+            background-image: radial-gradient(circle at 50% 0%, #151515 0%, #000000 70%);
+            color: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; 
+            padding: 40px 35px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .nav-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+        .nav-menu a {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaaaaa;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .channel-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 22px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .channel-avatar {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            padding: 2px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .channel-name { font-size: 16px; font-weight: 700; font-style: italic; letter-spacing: 1.5px; }
+        .channel-meta { font-size: 12px; color: #888; margin-top: 4px; letter-spacing: 0.5px; }
+
+        .feed { display: flex; flex-direction: column; gap: 18px; }
+
+        .post-card {
+            position: relative;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px 20px 18px 24px;
+            overflow: hidden;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        .post-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.18);
+            transition: background 0.3s ease;
+        }
+        .post-card:hover { border-color: rgba(255, 255, 255, 0.22); background: rgba(255, 255, 255, 0.03); }
+        .post-card:hover::before { background: rgba(255, 255, 255, 0.55); }
+        .post-card.pinned::before { background: #ff3333; }
+
+        .post-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .post-date {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #777;
+        }
+        .post-pin { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ff3333; }
+
+        .post-title {
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .post-text {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: #c0c0c0;
+            word-wrap: break-word;
+        }
+        .post-text strong, .post-text b { color: #ffffff; }
+        .post-text a {
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 255, 255, 0.35);
+            transition: text-decoration-color 0.2s ease;
+        }
+        .post-text a:hover { text-decoration-color: #ffffff; }
+        .post-text code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .post-media { display: grid; gap: 8px; margin-top: 15px; }
+        .post-media.count-1 { grid-template-columns: 1fr; }
+        .post-media.count-2,
+        .post-media.count-3,
+        .post-media.count-4 { grid-template-columns: 1fr 1fr; }
+        .post-media img {
+            display: block;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .post-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+        .post-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: all 0.25s ease;
+        }
+        .post-link i { color: #aaaaaa; font-size: 14px; }
+        .post-link:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .post-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .post-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #7a7a7a;
+        }
+
+        .empty-state {
+            text-align: center;
+            font-size: 13px;
+            font-style: italic;
+            color: #666;
+            padding: 40px 10px;
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .glass-container { padding: 30px 20px; border-radius: 20px; }
+            .post-card { padding: 16px 16px 16px 20px; }
+            .post-media.count-3, .post-media.count-4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <div class="nav-menu">
+            <a href="index.html">General</a>
+            <a href="archive.html">Resources</a>
+            <a href="posts.html" class="active">Posts</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <div class="channel-head">
+            <img src="https://i.ibb.co/HT76QVJx/base.png" alt="VALKNUTNET" class="channel-avatar">
+            <div>
+                <div class="channel-name">VALKNUTNET</div>
+                <div class="channel-meta">@valknutnet · <span id="postCount">0</span> posts</div>
+            </div>
+        </div>
+
+        <div class="feed" id="feed"></div>
+    </div>
+
+    <script>
+        const posts = [
+    {
+        date: "2026-09-12",
+        time: "12:00",
+        pinned: false,
+        text: "Приветствую.<br><br>Приступаем к планомерному восстановлению проекта. Наша приоритетная задача на текущем этапе — за счет рекомендаций и личных связей (сарафанного радио) вернуть всех, кто с нами был.<br><br>В настоящее время совместно с партнером ведем работу над новым каналом, подробности которого будем раскрывать поэтапно. Рад возобновлению деятельности.<br><br>Искренне ваш, Master.",
+        tags: ["announce"]
+    }
+];
+
+        function formatDate(date, time) {
+            if (!date) return "";
+            const parts = date.split("-");
+            let out = date;
+            if (parts.length === 3) out = `${parts[2]}.${parts[1]}.${parts[0]}`;
+            return time ? `${out} · ${time}` : out;
+        }
+
+        function renderFeed() {
+            const feed = document.getElementById('feed');
+            document.getElementById('postCount').textContent = posts.length;
+
+            if (!posts.length) {
+                feed.innerHTML = '<div class="empty-state">No posts yet.</div>';
+                return;
+            }
+
+            feed.innerHTML = posts.map(post => {
+                let media = "";
+                if (post.video) {
+                    media += `<div class="video-wrapper">
+                                <iframe src="https://www.youtube.com/embed/${post.video}" allowfullscreen loading="lazy"></iframe>
+                              </div>`;
+                }
+                if (post.images && post.images.length) {
+                    const cols = Math.min(post.images.length, 4);
+                    media += `<div class="post-media count-${cols}">` +
+                             post.images.map(src => `<img src="${src}" loading="lazy" alt="">`).join('') +
+                             `</div>`;
+                }
+
+                let links = "";
+                if (post.links && post.links.length) {
+                    links = `<div class="post-links">` +
+                            post.links.map(l =>
+                                `<a class="post-link" href="${l.url}" target="_blank" rel="noopener">
+                                    <i class="${l.icon || 'fas fa-link'}"></i> ${l.label}
+                                 </a>`).join('') +
+                            `</div>`;
+                }
+
+                let tags = "";
+                if (post.tags && post.tags.length) {
+                    tags = `<div class="post-tags">` +
+                           post.tags.map(t => `<span class="post-tag">#${t}</span>`).join('') +
+                           `</div>`;
+                }
+
+                return `
+                    <article class="post-card${post.pinned ? ' pinned' : ''}">
+                        <div class="post-head">
+                            <span class="post-date">${formatDate(post.date, post.time)}</span>
+                            ${post.pinned ? '<span class="post-pin"><i class="fas fa-thumbtack"></i> Pinned</span>' : ''}
+                        </div>
+                        ${post.title ? `<div class="post-title">${post.title}</div>` : ''}
+                        ${post.text ? `<div class="post-text">${post.text}</div>` : ''}
+                        ${media}
+                        ${links}
+                        ${tags}
+                    </article>
+                `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFeed);
+    </script>
+</body>
+</html>
